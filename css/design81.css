@@ -1,0 +1,429 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+/* フォントのライセンス表記 */
+/*
+'Nanum Gothic' is licensed under the Open Font License.
+https://fonts.google.com/specimen/Nanum+Gothic
+*/
+
+
+
+/* 基本設定 */
+html {
+    background: transparent;
+    font-size: 62.5%;
+}
+body {
+    min-height: 100vh;
+    font-size: 1.3rem;
+    font-family: 'メイリオ', 'ヒラギノ角ゴ', sans-serif;
+    letter-spacing: 0.2em;
+    line-height: 1.8;
+}
+
+ul {
+    list-style: none;
+}
+
+
+/* フォント指定まとめて */
+h2,
+h3,
+h4,
+.nav,
+.navTrigger {
+    font-family: 'Nanum Gothic', 'メイリオ', 'ヒラギノ角ゴ', sans-serif;
+    font-weight: normal;
+}
+
+
+/* 見出し、強調 */
+h2 {
+    margin: 40px 0 30px;
+    font-size: 1.2em;
+    text-align: center;
+}
+h2:first-of-type {
+    margin-top: 0;
+}
+h3 {
+    margin: 20px 0 15px;
+}
+h3 > span {
+    display: inline-block;
+    padding: 2px 10px;
+    background: #d5dee8;
+}
+h4 {
+    margin: 15px 15px;
+}
+h4 > span {
+    padding: 5px 5px;
+    border-bottom: #243444 solid 1px;
+}
+em {
+    background: #fff;
+    text-decoration: underline;
+}
+strong {
+    background: #657fa2;
+    color: #fff;
+}
+
+
+/* フォーム関連基本設定 */
+textarea,
+input[type] {
+    background: #fff0;
+    border: #243444 solid 1px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 100%;
+}
+.form .enter {
+    padding: 3px;
+    margin-bottom: 5px;
+}
+.form .button {
+    padding: 3px 10px;
+    margin-bottom: 5px;
+    border: #243444 solid 1px;
+    box-sizing: border-box;
+}
+
+
+/* 段落、余白、リンク */
+p {
+    margin: 0 2em;
+}
+.box {
+    padding: 50px;
+    margin: 50px 0;
+    background: #f3f7fb;
+    box-sizing: border-box;
+}
+.box::before {
+    content: '';
+    display: block;
+    width: 2.8em;
+    height: 2.8em;
+    margin: 0 auto 10px;
+    background: url('../img/design81.svg') center / contain no-repeat;
+}
+.space {
+    margin: 2em 30px;
+}
+
+.allWrap {
+    margin: 10vh auto;
+}
+
+.mainWrap {
+    position: relative;
+    width: 50%;
+     min-width: 600px;
+    margin: 10vh auto;
+    z-index: 2;
+}
+a {
+    color: #243444;
+    text-decoration: none;
+    transition: .3s;
+}
+.mainWrap a {
+    color: #0959a3;
+}
+.box a:hover {
+    filter: blur(1px);
+}
+
+
+/* メインコンテンツ */
+/* 名前変換フォーム */
+.nameChange .enter {
+    width: 10em;
+}
+
+/* 長編リスト */
+.longList {
+    display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 40px 30px;
+    margin: 30px 20px 40px;
+}
+.longList li a {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: minmax(1.2em, auto) 1fr;
+    gap: 0 10px;
+    min-height: 100px;
+    color: #243444;
+}
+/* ↓グリッド設定 */
+.longList a > img {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+}
+.longInfo {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    font-size: 1rem;
+}
+.longList a > img {
+    width: 100px;
+    height: 100px;
+    background: #d5dee8;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+}
+.longTitle {
+    font-size: 1.1em;
+}
+
+/* 短編リスト */
+.shortList {
+    columns: 2;
+}
+.shortList li {
+    margin-bottom: 5px;
+    color: #999;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+.shortList li a {
+    margin-right: .5em;
+}
+
+/* 注意マーク */
+.caution::after {
+    content: '*';
+    display: inline;
+    color: #ea7781;
+}
+
+
+/* ヘッダー */
+.mainHeader {
+    position: relative;
+    width: 40%;
+     min-width: 500px;
+    padding: 50px;
+    margin: auto;
+    background: #f3f7fb;
+    box-sizing: border-box;
+    text-align: center;
+}
+h1 {
+    position: relative;
+    font-size: 2em;
+    z-index: 2;
+}
+.mainHeader::before {
+    content: '';
+    display: block;
+    width: 90px;
+    height: 90px;
+    margin: 20px auto;
+    background: url('../img/design81.svg') center / contain no-repeat;
+}
+.url {
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
+.headerNav {
+    margin-top: 30px;
+}
+.headerNav li {
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+.mainHeader a {
+    color: #243444;
+}
+
+
+/* ナビゲーション（ハンバーガーメニュー） */
+.mainNav {
+    position: fixed;
+     top: 0;
+    opacity: 0;
+    transition: .5s;
+    visibility: hidden;
+    z-index: -1;
+}
+.mainNav a {
+    color: #243444;
+}
+.mainNav::before {
+    content: '';
+    display: block;
+    position: absolute;
+     top: 0;
+     left: 0;
+    width: calc(100vw + 400px);
+    height: 100vh;
+    transform: translateX(-400px);
+}
+.mainNav ul {
+    width: 400px;
+    height: 100vh;
+    padding: 100px 50px;
+    background: #fffb;
+    backdrop-filter: blur(2px);
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+}
+.mainNav li {
+    margin: 20px 0;
+}
+.mainNav li a {
+    padding: 10px;
+}
+
+
+/* ナビゲーション開閉 */
+.navTrigger {
+    position: fixed;
+     top: 20px;
+    font-size: 1rem;
+    opacity: 0;
+    text-transform: uppercase;
+    transition: .5s;
+    visibility: hidden;
+    z-index: 3;
+}
+.navTrigger a {
+    display: inline-block;
+    width: 5em;
+    padding: 10px;
+    border-right: #243444 solid 1px;
+    border-bottom: #243444 solid 1px;
+    color: #243444;
+    cursor: pointer;
+    text-align: center;
+    transform: translateX(-140%);
+}
+.navTrigger a::before {
+    content: 'menu';
+    position: relative;
+    z-index: 2;
+}
+
+/* ↓スクロールに応じてmenuボタンを表示＆子ページで最初から表示 */
+.view.navTrigger,
+.page .navTrigger {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ↓クリックで開いたとき */
+.mainNav.open {
+    z-index: 0;
+    opacity: 1;
+    visibility: visible;
+}
+.open.navTrigger a::before {
+    content: 'close';
+}
+
+
+/* フッター（削除OK※デフォルト非表示） */
+.mainFooter {
+    display: none;
+    margin: 10vh 0;
+    font-size: 1rem;
+    text-align: center;
+    opacity: .4;
+}
+.mainFooter a {
+    color: #0959a3;
+}
+
+
+/* レスポンシブ調整用 */
+@media(max-width:1500px) {
+    .longList {
+        display: block;
+    }
+    .longList li {
+        margin-bottom: 30px;
+    }
+    .longList li a {
+        display: inline-grid;
+        gap: 0 20px;
+        width: auto;
+    }
+    .shortList {
+        columns: 1;
+    }
+}
+
+
+@media(max-width:800px) {
+    body {
+        font-size: 1.1rem;
+    }
+    h4 {
+        margin: 15px 0;
+    }
+    p {
+        margin: 0 .5em;
+    }
+    .box {
+        padding: 30px 20px;
+    }
+    .space {
+        margin: 10px;
+    }
+    .mainWrap {
+        width: 90%;
+        max-width: 600px;
+        min-width: 250px;
+    }
+    .longList li {
+        margin-bottom: 15px;
+    }
+    .longList li a {
+        grid-template-columns: 80px 1fr;
+        grid-template-rows: minmax(1.2em, auto) 1fr;
+        min-height: 70px;
+    }
+    .longList a > img {
+        width: 80px;
+        height: 80px;
+    }
+    .mainHeader {
+        width: 70%;
+        min-width: 250px;
+    }
+    .mainHeader::before {
+        width: 70px;
+        height: 70px;
+    }
+    .mainNav::before {
+        background: #fffb;
+        backdrop-filter: blur(2px);
+    }
+    .mainNav ul {
+        background: #fff0;
+        backdrop-filter: none;
+    }
+    .navTrigger a {
+        transform: translateX(-10px);
+    }
+    .navTrigger a::after {
+        content: '';
+        display: block;
+        position: absolute;
+         top: 35%;
+         left: 10%;
+        width: 80%;
+        height: 30%;
+        background: #fff0;
+        backdrop-filter: blur(2px);
+        filter: blur(5px);
+    }
+}
