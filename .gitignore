@@ -1,0 +1,2 @@
+# .DS_Storeは保存しない
+*.DS_Store
