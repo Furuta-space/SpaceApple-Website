@@ -31,6 +31,12 @@ a img:hover {
 .center {
 	text-align: center;
 }
+a.clink {
+    color: #0067C0;
+}
+a.clink:hover { 
+    color: #659AD2;
+}
 
 /*ヘッダー
 -------------------------------------*/
