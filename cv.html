@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CV - Yudai FURUTA Website</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="siteName">Yudai FURUTA Website</span>
+      </a>
+      <button id="navToggle" class="icon-btn" aria-label="メニュー" aria-expanded="false">Menu</button>
+      <nav aria-label="Primary">
+        <a href="index.html">Top</a>
+        <a href="news.html">News</a>
+        <a href="profile.html">Profile</a>
+        <a href="pubs.html">Publications</a>
+        <a href="projects.html">Projects</a>
+        <!-- <a href="cv.html">CV</a> -->
+        <!-- <a href="contact.html">Contact</a> -->
+      </nav>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="hero">
+      <h1>CV</h1>
+      <p>PDF版と、必要ならWeb版の要約を載せます。</p>
+      <div class="btn-row">
+        <a class="btn primary" href="assets/cv.pdf" target="_blank" rel="noopener">CV（PDF）を開く</a>
+        <a class="btn" href="assets/cv.pdf" download>PDFをダウンロード</a>
+      </div>
+      <div class="note">※ <code>assets/cv.pdf</code> をあなたのPDFに差し替えてください。</div>
+    </section>
+
+    <section class="section">
+      <h2>Web Summary（任意）</h2>
+      <div class="timeline">
+        <div class="item">
+          <div class="title">Research Interests</div>
+          <div class="muted">ここに研究関心を2〜5行で。</div>
+        </div>
+        <div class="item">
+          <div class="title">Highlights</div>
+          <div class="muted">代表実績（受賞・論文・プロジェクト）を箇条書きで。</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div>© <span id="year">2025</span> <span id="siteName">Yudai FURUTA All rights reserved.</span></div>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="assets/site-data.js"></script>
+  <script src="assets/script.js"></script>
+</body>
+</html>
