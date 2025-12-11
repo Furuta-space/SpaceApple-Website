@@ -191,6 +191,54 @@ function setupEmailCopy(){
   });
 }
 
+function pubItemNode(p){
+  const titleNode = p.url
+    ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [p.title])
+    : el("div", {}, [p.title]);
+
+  return el("li", {}, [
+    el("div", { class:"kicker" }, [String(p.year)]),
+    titleNode,
+    el("div", { class:"small" }, [p.authors || ""])
+  ]);
+}
+
+function renderPublicationsByType(type, listId){
+  const ul = document.getElementById(listId);
+  if(!ul) return;
+
+  ul.innerHTML = "";
+
+  const items = (SITE.publications || [])
+    .filter(p => p.type === type)
+    .sort((a,b) => b.year - a.year);
+
+  items.forEach(p => ul.appendChild(pubItemNode(p)));
+}
+
+function awardItemNode(a){
+  const titleNode = a.url
+    ? el("a", { href:a.url, target:"_blank", rel:"noopener" }, [a.title])
+    : el("div", {}, [a.title]);
+
+  return el("li", {}, [
+    el("div", { class:"kicker" }, [String(a.year)]),
+    titleNode,
+    el("div", { class:"small" }, [a.event || ""])
+  ]);
+}
+
+function renderAwards(){
+  const ul = document.getElementById("awardList");
+  if(!ul || !SITE.awards) return;
+
+  ul.innerHTML = "";
+
+  const items = [...SITE.awards].sort((a,b) => b.year - a.year);
+
+  items.forEach(a => ul.appendChild(awardItemNode(a)));
+}
+
 // ====== 4) 初期化 ======
 document.addEventListener("DOMContentLoaded", ()=>{
   setActiveNav();
@@ -205,8 +253,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
   renderNews();
   renderFeatured();
 
+  // profile
+  renderAwards();
+
   // pubs
   renderPublicationsAndProjects();
+  renderPublicationsByType("IntConf", "pubListIntConf");
+  renderPublicationsByType("DomConf", "pubListDomConf");
+  renderPublicationsByType("Journal", "pubListJournal");
+  renderPublicationsByType("Thesis", "pubListThesis");
 
   // contact
   setupEmailCopy();

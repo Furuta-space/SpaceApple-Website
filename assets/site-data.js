@@ -14,7 +14,7 @@ window.SITE = {
     // { label: "GitHub", url: "#" },
   ],
   news: [
-    { date: "2025-12-10", text: "ホームページをリニューアルしました。", url: "index.html", tags: ["Others"] },
+    { date: "2025-12-10", text: "ホームページをリニューアルしました。", tags: ["Others"] },
     { date: "2025-12-02", text: "宇宙ロボティクスに関する国際会議（iSpaRo 2025, Sendai）で発表を行いました。", url: "https://www.isparo.space/", tags: ["Conference"] },
     { date: "2025-11-22", text: "第33回衛星設計コンテストに出場し、アイデア大賞を受賞しました。", url: "https://www.satcon.jp/review/", tags: ["Project","Award"] },
     { date: "2025-03-10", text: "日本航空宇宙学会北部支部2025年講演会（＠仙台）で発表を行いました。", tags: ["Conference"] },
@@ -33,8 +33,44 @@ window.SITE = {
     // { date: "2019-03-10", text: "受賞しました", tags: ["Project"] },
   ],
   publications: [
-    { year: 2025, title: "Paper Title A", venue: "Journal / Conf", authors: "Y. Furuta, ...", url: "#" },
-    { year: 2024, title: "Paper Title B", venue: "Conference", authors: "Y. Furuta, ...", url: "#" },
+    { type: "Journals", 
+      list: [
+        { authors: "Yudai Furuta, Toshinori Kuwahara", title: "Online Moment of Inertia Ratio Estimation for Uncooperative Spacecraft Based-On External Angular Velocity Measurements", conf: "Proceedings of the International Conference on Space Robotics 2025 (iSpaRo2025)", pp: "", year: 2025 },
+        { authors: "Toma Takahashi, Yudai Furuta, Toshinori Kuwahara", title: "Two-Stage CNN-Based Pose Estimation for Uncooperative Axisymmetric Spacecraft", conf: "Proceedings of the International Conference on Space Robotics 2025 (iSpaRo2025)", pp: "", year: 2025 },
+        { authors: "Toshinori Kuwahara, Haruto Someji, Yudai Furuta, Hisato Uetsuka", title: "FMCW Digital Steering LiDAR for Active Debris Removal", conf: "Proceedings of the International Astronautical Congress 2025 (IAC2025)", pp: "", year: 2025 },
+      ]
+    },
+    { type: "IntConf", 
+      list: [
+        { authors: "Yudai Furuta, Toshinori Kuwahara", title: "Online Moment of Inertia Ratio Estimation for Uncooperative Spacecraft Based-On External Angular Velocity Measurements", conf: "Proceedings of the International Conference on Space Robotics 2025 (iSpaRo2025)", pp: "", year: 2025 },
+        { authors: "Toma Takahashi, Yudai Furuta, Toshinori Kuwahara", title: "Two-Stage CNN-Based Pose Estimation for Uncooperative Axisymmetric Spacecraft", conf: "Proceedings of the International Conference on Space Robotics 2025 (iSpaRo2025)", pp: "", year: 2025 },
+        { authors: "Toshinori Kuwahara, Haruto Someji, Yudai Furuta, Hisato Uetsuka", title: "FMCW Digital Steering LiDAR for Active Debris Removal", conf: "Proceedings of the International Astronautical Congress 2025 (IAC2025)", pp: "", year: 2025 },
+      ]
+    },
+    { type: "DomConf", 
+      list: [
+        { authors: "Yudai Furuta, Toshinori Kuwahara", title: "Online Moment of Inertia Ratio Estimation for Uncooperative Spacecraft Based-On External Angular Velocity Measurements", conf: "Proceedings of the International Conference on Space Robotics 2025 (iSpaRo2025)", pp: "", year: 2025 },
+        { authors: "Toma Takahashi, Yudai Furuta, Toshinori Kuwahara", title: "Two-Stage CNN-Based Pose Estimation for Uncooperative Axisymmetric Spacecraft", conf: "Proceedings of the International Conference on Space Robotics 2025 (iSpaRo2025)", pp: "", year: 2025 },
+        { authors: "Toshinori Kuwahara, Haruto Someji, Yudai Furuta, Hisato Uetsuka", title: "FMCW Digital Steering LiDAR for Active Debris Removal", conf: "Proceedings of the International Astronautical Congress 2025 (IAC2025)", pp: "", year: 2025 },
+      ]
+    },
+    { type: "Theses", 
+      list: [
+        // { title: "Online Moment of Inertia Ratio Estimation for Uncooperative Spacecraft Based-On External Angular Velocity Measurements", degree: "Master", year: 2026 },
+        { title: "AAA", degree: "Bachelor", year: 2024 },
+        { title: "BBB", degree: "Associate degree", year: 2022 },
+      ]
+    },
+  ],
+  awards: [
+    { year: 2025, title: "アイデア大賞", event: "第33回衛星設計コンテスト", url: "https://www.satcon.jp/review/" },
+    { year: 2024, title: "ロボット学会優秀学生賞", event: "日本ロボット学会", url: "https://www.rsj.or.jp/info/awards/category/ygs/" },
+    { year: 2023, title: "最優秀賞", event: "愛知県大学対抗ハッカソン HackAichi+2023", url: "https://www.pref.aichi.jp/soshiki/kikaku/hackaichi2023.html" },
+    { year: 2023, title: "企業賞（東朋テクノロジー株式会社）", event: "愛知県大学対抗ハッカソン HackAichi+2023", url: "https://www.pref.aichi.jp/soshiki/kikaku/hackaichi2023.html" },
+    { year: 2023, title: "企業賞（日本ガイシ株式会社）", event: "愛知県大学対抗ハッカソン HackAichi+2023", url: "https://www.pref.aichi.jp/soshiki/kikaku/hackaichi2023.html" },
+    { year: 2022, title: "優秀成績賞", event: "統計検定データサイエンス発展", url: "https://www.toukei-kentei.jp/hubfs/files/past/cbt/2022/cbt_exc202201-06_grade12.pdf" },
+    { year: 2019, title: "土岐賞（技術賞・第3位相当）", event: "缶サット甲子園2019 全国大会", url: "http://www.space-koshien.com/cansat/2019/top.html" },
+    { year: 2019, title: "優勝", event: "缶サット甲子園2019 中部東海地方大会", url: "http://www.space-koshien.com/cansat/2019/guide/gifu.html" },
   ],
   projects: [
     { year: 2025, title: "Project A", desc: "非協力対象の相対航法・角速度推定", url: "#" },
