@@ -359,3 +359,66 @@ body{
      padding-right: 8px; */
   line-height: 1.2;
 }
+
+.pub-row{
+  display:flex;
+  gap:8px;
+  align-items:flex-start;
+}
+
+.pub-index{
+  flex:0 0 auto;
+  font-weight:600;
+  min-width: 2em; /* [1] と [10] を揃える */
+}
+
+.pub-body{
+  flex:1 1 auto;
+}
+
+/* 1行目: 著者（少し小さめ＆薄い色） */
+.pub-authors{
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* 2行目: タイトル（少し大きめ＆太字） */
+.pub-title{
+  font-size: 1.0rem;      /* ベースより少し大きめに調整したいなら 1.05rem 等 */
+  font-weight: 600;
+  margin: 2px 0 1px;
+}
+
+.pub-title a{
+  text-decoration: none;
+}
+
+.pub-title a:hover{
+  text-decoration: underline;
+}
+
+/* 3行目: venue + year（少し小さめ） */
+.pub-meta{
+  font-size: 0.9rem;
+}
+
+/* venue だけ斜体 */
+.pub-venue{
+  font-style: italic;
+}
+
+.theses-list .thesis-item{
+  /* 既存の .list li のスタイルが乗るので、必要なら少しだけ調整 */
+}
+
+.thesis-degree{
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.thesis-title{
+  font-size: 1.0rem;      /* タイトルを本文より少し大きく */
+  font-weight: 500;
+  margin-top: 2px;
+}
