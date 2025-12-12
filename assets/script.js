@@ -191,17 +191,17 @@ function setupEmailCopy(){
   });
 }
 
-function pubItemNode(p){
-  const titleNode = p.url
-    ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [p.title])
-    : el("div", {}, [p.title]);
+// function pubItemNode(p){
+//   const titleNode = p.url
+//     ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [p.title])
+//     : el("div", {}, [p.title]);
 
-  return el("li", {}, [
-    el("div", { class:"kicker" }, [String(p.year)]),
-    titleNode,
-    el("div", { class:"small" }, [p.authors || ""])
-  ]);
-}
+//   return el("li", {}, [
+//     el("div", { class:"kicker" }, [String(p.year)]),
+//     titleNode,
+//     el("div", { class:"small" }, [p.authors || ""])
+//   ]);
+// }
 
 function renderPublicationsByType(type, listId){
   const ul = document.getElementById(listId);
@@ -239,6 +239,139 @@ function renderAwards(){
   items.forEach(a => ul.appendChild(awardItemNode(a)));
 }
 
+// type をもとに、"journal" / "thesis" / "conf" に正規化する
+function getPubKind(p){
+  const t = (p.type || "").toLowerCase();
+
+  if(t === "journal") return "journal";
+  if(t === "thesis")  return "thesis";
+
+  // それ以外（IntConf, DomConf など）はひとまず全部 conference 扱い
+  return "conf";
+}
+
+// IEEE風フォーマットを「ノード列」で作る（venueだけ斜体にする）
+function buildPublicationInline(p){
+  const nodes = [];
+  const kind    = getPubKind(p);
+  const authors = p.authors || "";
+  const title   = p.title   || "";
+  const venue   = p.venue   || "";
+  const year    = p.year    || "";
+  const pages   = p.pages;
+
+  const vol   = p.volume;
+  const no    = p.number;
+
+  const hasPages = pages && pages !== "TBD";
+
+  const addText = (s) => {
+    if(!s) return;
+    nodes.push(document.createTextNode(s));
+  };
+
+  const addVenue = () => {
+    if(!venue) return;
+    nodes.push(el("span", { class:"pub-venue" }, [venue]));
+  };
+
+  // ---------- Journal ----------
+  if(kind === "journal"){
+    addText(`${authors}, "${title}," `);
+    if(venue){
+      addVenue();
+      addText(", ");
+    }
+    if(vol != null) addText(`vol. ${vol}, `);
+    if(no  != null) addText(`no. ${no}, `);
+    if(hasPages)    addText(`pp. ${pages}, `);
+    if(year)        addText(`${year}.`);
+    return nodes;
+  }
+
+  // ---------- Thesis ----------
+  if(kind === "thesis"){
+    addText(`${authors}, "${title}," `);
+    if(venue){
+      addVenue();
+      addText(", ");
+    }
+    if(year) addText(`${year}.`);
+    return nodes;
+  }
+
+  // ---------- Conference (IntConf / DomConf / その他) ----------
+  addText(`${authors}, "${title}," `);
+  if(venue){
+    addVenue();
+    addText(", ");
+  }
+  if(hasPages) addText(`pp. ${pages}, `);
+  if(year)     addText(`${year}.`);
+
+  return nodes;
+}
+
+function pubItemNode(p, index){
+  const authors = p.authors || "";
+  const title   = p.title   || "";
+  const venue   = p.venue   || "";
+  const year    = p.year    || "";
+
+  // 1行目: 著者
+  const authorsEl = el("div", { class:"pub-authors" }, [authors]);
+
+  // 2行目: タイトル（クリック可能なら a に）
+  const titleInner = p.url
+    ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [`"${title},"`])
+    : document.createTextNode(`"${title},"`);
+
+  const titleEl = el("div", { class:"pub-title" }, [titleInner]);
+
+  // 3行目: venue（斜体）と year
+  const metaChildren = [];
+  if(venue){
+    metaChildren.push(el("span", { class:"pub-venue" }, [venue]));
+  }
+  if(year){
+    const prefix = venue ? ", " : "";
+    metaChildren.push(document.createTextNode(`${prefix}${year}.`));
+  }
+  const metaEl = el("div", { class:"pub-meta" }, metaChildren);
+
+  const body = el("div", { class:"pub-body" }, [
+    authorsEl,
+    titleEl,
+    metaEl,
+  ]);
+
+  return el("li", { class:"pub-item" }, [
+    el("div", { class:"pub-row" }, [
+      el("span", { class:"pub-index" }, [`[${index}]`]),
+      body,
+    ])
+  ]);
+}
+
+function renderPublicationsByType(type, listId){
+  const ul = document.getElementById(listId);
+  if(!ul) return;
+
+  ul.innerHTML = "";
+
+  const items = (SITE.publications || [])
+    .filter(p => p.type === type)
+    .sort((a,b) => b.year - a.year);  // 年が新しい順（ここはそのまま）
+
+  const n = items.length;
+
+  items.forEach((p, idx) => {
+    const displayIndex = n - idx;        // ← 一番上が [n]、最後が [1]
+    ul.appendChild(pubItemNode(p, displayIndex));
+  });
+}
+
+
 // ====== 4) 初期化 ======
 document.addEventListener("DOMContentLoaded", ()=>{
   setActiveNav();
@@ -261,7 +394,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
   renderPublicationsByType("IntConf", "pubListIntConf");
   renderPublicationsByType("DomConf", "pubListDomConf");
   renderPublicationsByType("Journal", "pubListJournal");
-  renderPublicationsByType("Thesis", "pubListThesis");
 
   // contact
   setupEmailCopy();
