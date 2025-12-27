@@ -54,6 +54,38 @@ function showToast(message){
   showToast._timer = setTimeout(()=>{ t.style.display="none"; }, 1800);
 }
 
+function createSmartLink(item, children, extraProps = {}){
+  // item.href（内部） or item.url（外部）どちらを使うか決める
+  let link = null;
+  let openNewTab = null;
+
+  if(item && item.href){
+    link = item.href;
+    openNewTab = false; // 内部リンクはデフォルト同一タブ
+  }
+  if(item && item.url){
+    link = item.url;
+    openNewTab = true;  // 外部リンクはデフォルト別タブ
+  }
+
+  // newTab があれば最優先（true/false）
+  if(item && typeof item.newTab === "boolean"){
+    openNewTab = item.newTab;
+  }
+
+  // リンクなし
+  if(!link){
+    return el("span", extraProps, children);
+  }
+
+  const props = { ...extraProps, href: link };
+  if(openNewTab){
+    props.target = "_blank";
+    props.rel = "noopener";
+  }
+  return el("a", props, children);
+}
+
 // ====== 3) ページ別レンダリング ======
 function newsItemNode(n){
   const tags = (n.tags || []);
@@ -61,9 +93,14 @@ function newsItemNode(n){
     ? el("div", { class:"news-tags" }, tags.map(t => el("span", { class:"tag" }, [t])))
     : el("div", { class:"news-tags" });
 
-  const titleNode = n.url
-    ? el("a", { href:n.url, target:"_blank", rel:"noopener" }, [n.text])
-    : el("div", {}, [n.text]);
+  // const titleNode = n.url
+  //   ? el("a", { href:n.url, target:"_blank", rel:"noopener" }, [n.text])
+  //   : el("div", {}, [n.text]);
+  const titleNode = createSmartLink(
+    n,
+    [n.text],
+    { class: "news-link" } // CSS用クラス名
+  );
 
   return el("li", {}, [
     // 1行目：日付 + タグ
@@ -110,8 +147,11 @@ function renderLinks(){
   const box = $("#linkButtons");
   if(!box) return;
   box.innerHTML = "";
+  // SITE.links.forEach(l=>{
+  //   box.appendChild(el("a", { class:"btn", href:l.url, target:"_blank", rel:"noopener" }, [l.label]));
+  // });
   SITE.links.forEach(l=>{
-    box.appendChild(el("a", { class:"btn", href:l.url, target:"_blank", rel:"noopener" }, [l.label]));
+    box.appendChild(createSmartLink(l, [l.label], { class:"btn" }));
   });
 }
 
@@ -124,7 +164,8 @@ function renderFeatured(){
     SITE.publications.slice(0,3).forEach(p=>{
       pub.appendChild(el("li", {}, [
         el("div", { class:"kicker" }, [`${p.year} • ${p.venue}`]),
-        p.url ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [p.title]) : el("div", {}, [p.title]),
+        // p.url ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [p.title]) : el("div", {}, [p.title]),
+        createSmartLink(p, [p.title]),
         el("div", { class:"small" }, [p.authors]),
       ]));
     });
@@ -135,7 +176,8 @@ function renderFeatured(){
     SITE.projects.slice(0,3).forEach(p=>{
       prj.appendChild(el("li", {}, [
         el("div", { class:"kicker" }, [`${p.year}`]),
-        p.url ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [p.title]) : el("div", {}, [p.title]),
+        // p.url ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [p.title]) : el("div", {}, [p.title]),
+        createSmartLink(p, [p.title]),
         el("div", { class:"small" }, [p.desc]),
       ]));
     });
@@ -191,35 +233,11 @@ function setupEmailCopy(){
   });
 }
 
-// function pubItemNode(p){
-//   const titleNode = p.url
-//     ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [p.title])
-//     : el("div", {}, [p.title]);
-
-//   return el("li", {}, [
-//     el("div", { class:"kicker" }, [String(p.year)]),
-//     titleNode,
-//     el("div", { class:"small" }, [p.authors || ""])
-//   ]);
-// }
-
-function renderPublicationsByType(type, listId){
-  const ul = document.getElementById(listId);
-  if(!ul) return;
-
-  ul.innerHTML = "";
-
-  const items = (SITE.publications || [])
-    .filter(p => p.type === type)
-    .sort((a,b) => b.year - a.year);
-
-  items.forEach(p => ul.appendChild(pubItemNode(p)));
-}
-
 function awardItemNode(a){
-  const titleNode = a.url
-    ? el("a", { href:a.url, target:"_blank", rel:"noopener" }, [a.title])
-    : el("div", {}, [a.title]);
+  // const titleNode = a.url
+  //   ? el("a", { href:a.url, target:"_blank", rel:"noopener" }, [a.title])
+  //   : el("div", {}, [a.title]);
+  const titleNode = createSmartLink(a, [a.title]);
 
   return el("li", {}, [
     el("div", { class:"kicker" }, [String(a.year)]),
@@ -322,9 +340,12 @@ function pubItemNode(p, index){
   const authorsEl = el("div", { class:"pub-authors" }, [authors]);
 
   // 2行目: タイトル（クリック可能なら a に）
-  const titleInner = p.url
-    ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [`"${title},"`])
-    : document.createTextNode(`"${title},"`);
+  // const titleInner = p.url
+  //   ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [`"${title},"`])
+  //   : document.createTextNode(`"${title},"`);
+  const titleInner = (p.href || p.url)
+  ? createSmartLink(p, [`"${title},"`])
+  : document.createTextNode(`"${title},"`);
 
   const titleEl = el("div", { class:"pub-title" }, [titleInner]);
 

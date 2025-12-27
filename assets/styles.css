@@ -422,3 +422,12 @@ body{
   font-weight: 500;
   margin-top: 2px;
 }
+
+.news-detail .hero > .small{
+  margin-bottom: 14px;
+}
+
+.news-detail .hero h1{
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
