@@ -16,8 +16,8 @@ window.SITE = {
   ],
   news: [
     { date: "2025-12-10", text: "ホームページをリニューアルしました。", tags: ["Others"] },
-    { date: "2025-12-02", text: "宇宙ロボティクスに関する国際会議（iSpaRo 2025, Sendai）で発表を行いました。", url: "https://www.isparo.space/", tags: ["Conference"] },
-    { date: "2025-11-22", text: "第33回衛星設計コンテストに出場し、アイデア大賞を受賞しました。", url: "https://www.satcon.jp/review/", tags: ["Project","Award"] },
+    { date: "2025-12-02", text: "宇宙ロボティクスに関する国際会議（iSpaRo 2025, Sendai）で発表を行いました。", href: "news/news_20251202.html", tags: ["Conference"] },
+    { date: "2025-11-22", text: "第33回衛星設計コンテストに出場し、アイデア大賞を受賞しました。", href: "news/news_20251122.html", tags: ["Project","Award"] },
     { date: "2025-03-10", text: "日本航空宇宙学会北部支部2025年講演会（＠仙台）で発表を行いました。", tags: ["Conference"] },
     { date: "2024-11-07", text: "第68回宇宙科学技術連合講演会（＠姫路）で発表を行いました。", tags: ["Conference"] },
     { date: "2024-04-03", text: "東北大学大学院 工学研究科 航空宇宙工学専攻 博士前期2年の課程へ入学しました。", tags: ["Education"] },
