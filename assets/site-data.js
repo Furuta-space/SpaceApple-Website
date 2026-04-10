@@ -16,6 +16,7 @@ window.SITE = {
   ],
   news: [
     { date: "2026-03-13", text: "日本航空宇宙学会北部支部2026年講演会（＠仙台）で発表を行いました。", text_en: "I gave a presentation at the 2026 JSASS Northern Branch Conference in Sendai.", tags: ["Conference"] },
+    { date: "2026-03-08", text: "第22回種子島ロケットコンテストでアカデミック賞を受賞しました。", text_en: "I won the Academic Award at the 22nd Tanegashima Rocket Contest.", tags: ["Award"] },
     { date: "2025-12-10", text: "ホームページをリニューアルしました。", text_en: "I renewed this website.", tags: ["Others"] },
     { date: "2025-12-02", text: "宇宙ロボティクスに関する国際会議（iSpaRo 2025, Sendai）で発表を行いました。", text_en: "I presented at iSpaRo 2025 in Sendai.", href: "news/news_20251202.html", href_en: "news/news_20251202_en.html", tags: ["Conference"] },
     { date: "2025-11-22", text: "第33回衛星設計コンテストに出場し、アイデア大賞を受賞しました。", text_en: "Our team won the Idea Award at the 33rd Satellite Design Contest.", href: "news/news_20251122.html", href_en: "news/news_20251122_en.html", tags: ["Project","Award"] },
