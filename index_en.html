@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4M6ZG4NSB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-R4M6ZG4NSB');
+  </script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Top page of Yudai Furuta's personal website." />
+  <title>Yudai FURUTA</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="index_en.html">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="siteName">Yudai FURUTA Website</span>
+      </a>
+      <button id="navToggle" class="icon-btn" aria-label="Menu" aria-expanded="false">Menu</button>
+      <nav aria-label="Primary">
+        <div class="nav-links">
+          <a href="index_en.html">Top</a>
+          <a href="news_en.html">News</a>
+          <a href="profile_en.html">Profile</a>
+          <a href="pubs_en.html">Publications</a>
+          <a href="projects_en.html">Projects</a>
+        </div>
+        <div class="nav-lang" aria-label="Language switch">
+          <span class="nav-divider" aria-hidden="true">|</span>
+          <a class="lang-link" href="index.html">JP</a>
+          <span class="lang-sep" aria-hidden="true">/</span>
+          <a class="lang-link current" href="index_en.html" aria-current="page">EN</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="container">
+    <section class="hero">
+      <div class="hero-top">
+        <img class="avatar" src="img/profile.jpg" alt="Portrait of Yudai Furuta" loading="lazy" width="120" height="120" />
+        <div>
+          <h1>Yudai FURUTA</h1>
+          <p>&thinsp;Doctoral Student, Department of Aerospace Engineering, Tohoku University<br>&thinsp;Co-founder / Officer, Ecocororobo Inc.</p>
+          <div class="meta">
+            <span class="badge">Space Robotics</span>
+            <span class="badge">GNC / Estimation</span>
+            <span class="badge">On-orbit Servicing</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="grid">
+      <section class="section">
+        <h2>News</h2>
+        <ul class="list" id="newsTimeline"></ul>
+        <div class="btn-row btn-row-baseline" style="margin-top:10px;">
+          <span>Older updates are available on the</span>
+          <a class="btn btn-inline" href="news_en.html">News</a>
+          <span>page.</span>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Social Media</h2>
+        <div class="btn-row" id="linkButtons"></div>
+      </section>
+    </div>
+    <section class="section">
+      <h2>Featured</h2>
+      Coming soon...
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+      <div>© <span id="year">2026</span> <span id="siteName">Yudai FURUTA All rights reserved.</span></div>
+    </div>
+  </footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="assets/site-data.js"></script>
+  <script src="assets/data/news-data.js"></script>
+  <script src="assets/data/awards-data.js"></script>
+  <script src="assets/data/projects-data.js"></script>
+  <script src="assets/data/publications-data.js"></script>
+  <script src="assets/script.js"></script>
+</body>
+</html>

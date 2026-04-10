@@ -20,13 +20,19 @@
       <button id="navToggle" class="icon-btn" aria-label="メニュー" aria-expanded="false">Menu</button>
       
       <nav aria-label="Primary">
-        <a href="index.html">Top</a>
-        <a href="news.html">News</a>
-        <a href="profile.html">Profile</a>
-        <a href="pubs.html">Publications</a>
-        <a href="projects.html">Projects</a>
-        <!-- <a href="cv.html">CV</a> -->
-        <!-- <a href="contact.html">Contact</a> -->
+        <div class="nav-links">
+          <a href="index.html">Top</a>
+          <a href="news.html">News</a>
+          <a href="profile.html">Profile</a>
+          <a href="pubs.html">Publications</a>
+          <a href="projects.html">Projects</a>
+        </div>
+        <div class="nav-lang" aria-label="Language switch">
+          <span class="nav-divider" aria-hidden="true">|</span>
+          <a class="lang-link current" href="profile.html" aria-current="page">JP</a>
+          <span class="lang-sep" aria-hidden="true">/</span>
+          <a class="lang-link" href="profile_en.html">EN</a>
+        </div>
       </nav>
     </div>
   </header>
@@ -163,6 +169,10 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="assets/site-data.js"></script>
+  <script src="assets/data/news-data.js"></script>
+  <script src="assets/data/awards-data.js"></script>
+  <script src="assets/data/projects-data.js"></script>
+  <script src="assets/data/publications-data.js"></script>
   <script src="assets/script.js"></script>
 </body>
 </html>

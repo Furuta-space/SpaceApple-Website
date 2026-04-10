@@ -1,8 +1,5 @@
 // ====== 1) データ ======
-const SITE = window.SITE;
-if(!SITE){
-  throw new Error("SITE data not loaded. Make sure assets/site-data.js is included before assets/script.js");
-}
+const SITE = window.SITE || null;
 
 // ====== 2) 共通UI ======
 function $(sel){ return document.querySelector(sel); }
@@ -17,10 +14,30 @@ function el(tag, props={}, children=[]){
   return e;
 }
 
+function currentLang(){
+  return document.documentElement.lang === "en" ? "en" : "ja";
+}
+
+function localize(item, key){
+  if(!item) return "";
+  const localizedKey = `${key}_${currentLang()}`;
+  return item[localizedKey] || item[key] || "";
+}
+
+function localizeHref(item){
+  if(!item) return { link: null, openNewTab: null };
+  const lang = currentLang();
+  const href = item[`href_${lang}`] || item.href || null;
+  const url = item[`url_${lang}`] || item.url || null;
+  if(href) return { link: href, openNewTab: false };
+  if(url) return { link: url, openNewTab: true };
+  return { link: null, openNewTab: null };
+}
+
 function setActiveNav(){
   const path = location.pathname.split("/").pop() || "index.html";
-  document.querySelectorAll("nav a").forEach(a=>{
-    const href = a.getAttribute("href");
+  document.querySelectorAll("nav .nav-links a").forEach(a=>{
+    const href = (a.getAttribute("href") || "").split("/").pop();
     if(href === path) a.classList.add("active");
   });
 }
@@ -55,18 +72,7 @@ function showToast(message){
 }
 
 function createSmartLink(item, children, extraProps = {}){
-  // item.href（内部） or item.url（外部）どちらを使うか決める
-  let link = null;
-  let openNewTab = null;
-
-  if(item && item.href){
-    link = item.href;
-    openNewTab = false; // 内部リンクはデフォルト同一タブ
-  }
-  if(item && item.url){
-    link = item.url;
-    openNewTab = true;  // 外部リンクはデフォルト別タブ
-  }
+  let { link, openNewTab } = localizeHref(item);
 
   // newTab があれば最優先（true/false）
   if(item && typeof item.newTab === "boolean"){
@@ -98,7 +104,7 @@ function newsItemNode(n){
   //   : el("div", {}, [n.text]);
   const titleNode = createSmartLink(
     n,
-    [n.text],
+    [localize(n, "text")],
     { class: "news-link" } // CSS用クラス名
   );
 
@@ -115,7 +121,7 @@ function newsItemNode(n){
 
 function renderNewsTimeline(limit = 5){
   const ul = $("#newsTimeline");
-  if(!ul) return;
+  if(!ul || !SITE) return;
   ul.innerHTML = "";
 
   // 日付の新しい順に並べ替え（YYYY-MM-DD想定）
@@ -125,7 +131,7 @@ function renderNewsTimeline(limit = 5){
 
 function renderNewsAll(){
   const ul = $("#newsAllList");
-  if(!ul) return;
+  if(!ul || !SITE) return;
   ul.innerHTML = "";
 
   // 日付の新しい順に並べ替え（YYYY-MM-DD想定）
@@ -135,7 +141,7 @@ function renderNewsAll(){
 
 function renderNews(){
   const ul = $("#newsList");
-  if(!ul) return;
+  if(!ul || !SITE) return;
   ul.innerHTML = "";
 
   // 日付の新しい順に並べ替え（YYYY-MM-DD想定）
@@ -145,28 +151,28 @@ function renderNews(){
 
 function renderLinks(){
   const box = $("#linkButtons");
-  if(!box) return;
+  if(!box || !SITE) return;
   box.innerHTML = "";
   // SITE.links.forEach(l=>{
   //   box.appendChild(el("a", { class:"btn", href:l.url, target:"_blank", rel:"noopener" }, [l.label]));
   // });
   SITE.links.forEach(l=>{
-    box.appendChild(createSmartLink(l, [l.label], { class:"btn" }));
+    box.appendChild(createSmartLink(l, [localize(l, "label")], { class:"btn" }));
   });
 }
 
 function renderFeatured(){
   const pub = $("#featuredPubs");
   const prj = $("#featuredProjects");
+  if(!SITE) return;
 
   if(pub){
     pub.innerHTML = "";
     SITE.publications.slice(0,3).forEach(p=>{
       pub.appendChild(el("li", {}, [
         el("div", { class:"kicker" }, [`${p.year} • ${p.venue}`]),
-        // p.url ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [p.title]) : el("div", {}, [p.title]),
-        createSmartLink(p, [p.title]),
-        el("div", { class:"small" }, [p.authors]),
+        createSmartLink(p, [localize(p, "title")]),
+        el("div", { class:"small" }, [localize(p, "authors")]),
       ]));
     });
   }
@@ -176,9 +182,8 @@ function renderFeatured(){
     SITE.projects.slice(0,3).forEach(p=>{
       prj.appendChild(el("li", {}, [
         el("div", { class:"kicker" }, [`${p.year}`]),
-        // p.url ? el("a", { href:p.url, target:"_blank", rel:"noopener" }, [p.title]) : el("div", {}, [p.title]),
-        createSmartLink(p, [p.title]),
-        el("div", { class:"small" }, [p.desc]),
+        createSmartLink(p, [localize(p, "title")]),
+        el("div", { class:"small" }, [localize(p, "desc")]),
       ]));
     });
   }
@@ -187,6 +192,7 @@ function renderFeatured(){
 function renderPublicationsAndProjects(){
   const pub = $("#pubList");
   const prj = $("#projectList");
+  if(!SITE) return;
   if(pub){
     pub.innerHTML = "";
     SITE.publications
@@ -220,15 +226,15 @@ function renderPublicationsAndProjects(){
 function setupEmailCopy(){
   const btn = $("#copyEmail");
   const span = $("#emailText");
-  if(!btn || !span) return;
+  if(!btn || !span || !SITE) return;
   span.textContent = SITE.email;
 
   btn.addEventListener("click", async ()=>{
     try{
       await navigator.clipboard.writeText(SITE.email);
-      showToast("メールアドレスをコピーしました");
+      showToast(currentLang() === "en" ? "Email address copied" : "メールアドレスをコピーしました");
     }catch{
-      showToast("コピーできませんでした（ブラウザ権限をご確認ください）");
+      showToast(currentLang() === "en" ? "Copy failed. Please check browser permissions." : "コピーできませんでした（ブラウザ権限をご確認ください）");
     }
   });
 }
@@ -237,18 +243,18 @@ function awardItemNode(a){
   // const titleNode = a.url
   //   ? el("a", { href:a.url, target:"_blank", rel:"noopener" }, [a.title])
   //   : el("div", {}, [a.title]);
-  const titleNode = createSmartLink(a, [a.title]);
+  const titleNode = createSmartLink(a, [localize(a, "title")]);
 
   return el("li", {}, [
     el("div", { class:"kicker" }, [String(a.year)]),
     titleNode,
-    el("div", { class:"small" }, [a.event || ""])
+    el("div", { class:"small" }, [localize(a, "event") || ""])
   ]);
 }
 
 function renderAwards(){
   const ul = document.getElementById("awardList");
-  if(!ul || !SITE.awards) return;
+  if(!ul || !SITE || !SITE.awards) return;
 
   ul.innerHTML = "";
 
@@ -272,9 +278,9 @@ function getPubKind(p){
 function buildPublicationInline(p){
   const nodes = [];
   const kind    = getPubKind(p);
-  const authors = p.authors || "";
-  const title   = p.title   || "";
-  const venue   = p.venue   || "";
+  const authors = localize(p, "authors");
+  const title   = localize(p, "title");
+  const venue   = localize(p, "venue");
   const year    = p.year    || "";
   const pages   = p.pages;
 
@@ -376,7 +382,7 @@ function pubItemNode(p, index){
 
 function renderPublicationsByType(type, listId){
   const ul = document.getElementById(listId);
-  if(!ul) return;
+  if(!ul || !SITE) return;
 
   ul.innerHTML = "";
 
@@ -399,8 +405,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
   setupMobileNav();
 
   // 共通
-  const nameEl = $("#siteName");
-  if(nameEl) nameEl.textContent = SITE.name;
+  const headerName = document.querySelector("header #siteName");
+  if(headerName) headerName.textContent = SITE ? SITE.name : "Yudai FURUTA Website";
 
   // index
   renderLinks();
