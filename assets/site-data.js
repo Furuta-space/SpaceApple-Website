@@ -35,6 +35,7 @@ window.SITE = {
     // { date: "2019-03-10", text: "受賞しました", tags: ["Project"] },
   ],
   awards: [
+    { year: 2025, title: "アカデミック賞（日本航空宇宙学会西部支部賞）", event: "第22回種子島ロケットコンテスト", url: "https://jaxa-rocket-contest.jp/past/2026/" },
     { year: 2025, title: "アイデア大賞", event: "第33回衛星設計コンテスト", url: "https://www.satcon.jp/review/" },
     { year: 2024, title: "ロボット学会優秀学生賞", event: "日本ロボット学会", url: "https://www.rsj.or.jp/info/awards/category/ygs/" },
     { year: 2023, title: "最優秀賞", event: "愛知県大学対抗ハッカソン HackAichi+2023", url: "https://www.pref.aichi.jp/soshiki/kikaku/hackaichi2023.html" },
