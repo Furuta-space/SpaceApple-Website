@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact - Yudai FURUTA Website</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="index_en.html"><span class="dot" aria-hidden="true"></span><span id="siteName">Yudai FURUTA Website</span></a>
+      <button id="navToggle" class="icon-btn" aria-label="Menu" aria-expanded="false">Menu</button>
+      <nav aria-label="Primary">
+        <div class="nav-links">
+          <a href="index_en.html">Top</a>
+          <a href="news_en.html">News</a>
+          <a href="profile_en.html">Profile</a>
+          <a href="pubs_en.html">Publications</a>
+          <a href="projects_en.html">Projects</a>
+        </div>
+        <div class="nav-lang" aria-label="Language switch"><span class="nav-divider" aria-hidden="true">|</span><a class="lang-link" href="contact.html">JP</a><span class="lang-sep" aria-hidden="true">/</span><a class="lang-link current" href="contact_en.html" aria-current="page">EN</a></div>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="container">
+    <section class="hero"><h1>Contact</h1><p>Contact information, email, and social links.</p></section>
+    <div class="grid">
+      <section class="card">
+        <h2>Email</h2>
+        <div class="item"><div class="top"><div class="title" id="emailText">your.name@example.com</div><button class="btn" id="copyEmail" type="button">Copy</button></div></div>
+        <h2 style="margin-top:14px;">Social Media</h2>
+        <div class="btn-row" id="linkButtons"></div>
+      </section>
+      <section class="card">
+        <h2>Contact Form (Optional)</h2>
+        <p class="small">Without a backend, this can temporarily use a <code>mailto:</code> form.</p>
+        <form class="form" action="mailto:your.name@example.com" method="post" enctype="text/plain">
+          <input class="input" name="name" placeholder="Your name" required>
+          <input class="input" name="email" placeholder="Your email" required>
+          <textarea name="message" placeholder="Message" required></textarea>
+          <button class="btn primary" type="submit">Send</button>
+        </form>
+      </section>
+    </div>
+  </main>
+  <footer><div class="container"><div>© <span id="year">2026</span> <span id="siteName">Yudai FURUTA All rights reserved.</span></div></div></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="assets/site-data.js"></script>
+  <script src="assets/script.js"></script>
+</body>
+</html>
